@@ -130,7 +130,8 @@ d.addEventListener('click', () => {
 // see https://github.com/konsumer/gif2oled for instructions using this
 // from image ${fileInfo.name}
 
-static const unsigned char ${varName}[${frames.length}][${bytes[0].length}] = {
+static const unsigned int gif2oled_image_example_size = ${frames.length};
+static const unsigned char ${varName}${varName}_size][${bytes[0].length}] = {
   ${bytes.map(b => '{' + b.map(byteToHex).join(',') + '}').join(',')}
 };
 

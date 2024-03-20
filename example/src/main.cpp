@@ -44,11 +44,17 @@ int main() {
 
   if (!myOLED.OLEDSetBufferPtr(myOLEDwidth, myOLEDheight, screenBuffer, sizeof(screenBuffer)))
     return;
-  myOLED.OLEDBitmap(0, 0, 128, 64, gif2oled_image_example[0], false);
-  myOLED.OLEDupdate();
-  bcm2835_delay(5000);
+
   myOLED.OLEDFillScreen(0x00, 0);
   myOLED.OLEDclearBuffer();
+
+  int frame = 0;
+
+  while (true) {
+    myOLED.OLEDBitmap(0, 0, 128, 64, gif2oled_image_example[frame++ % gif2oled_image_example_size], false);
+    myOLED.OLEDupdate();
+    bcm2835_delay(100);
+  }
 
   myOLED.OLEDPowerDown();  // Switch off display
   myOLED.OLED_I2C_OFF();   // Switch off I2C , optional may effect other programs & devices
