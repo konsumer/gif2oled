@@ -43,7 +43,7 @@ int main() {
     return -1;
 
   if (!myOLED.OLEDSetBufferPtr(myOLEDwidth, myOLEDheight, screenBuffer, sizeof(screenBuffer)))
-    return;
+    return -1;
 
   myOLED.OLEDFillScreen(0x00, 0);
   myOLED.OLEDclearBuffer();
