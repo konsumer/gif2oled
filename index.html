@@ -1,25 +1,13 @@
-<head>
-  <title>gif2oled</title>
-</head>
-<body style="width: 80%; margin: auto; font-family: sans-serif; padding-top: 20px;">
-  <h1>gif2oled</h1>
-  <p>Choose your gif file, and a preview will be shown. Select differnt dithering options to get it looking good, and it will generate C code for a 128x64 OLED. <a href="https://github.com/konsumer/gif2oled">source</a></p>
-  <div style="margin-bottom: 20px;">
-    <input type="file" id="file" style="margin-bottom: 10px;"/>
-    <fieldset style="margin-bottom: 10px;">
-      <legend>Dithering</legend>
-      <label style="display:block; margin-bottom: 10px">Type: <select id="method">
-        <option value="atkinson">Atkinson (old mac)</option>
-        <option value="bayer">Bayer (ordered)</option>
-        <option value="floydsteinberg">Floyd–Steinberg (classic)</option>
-        <option value="none">None</option>
-      </select></label>
-      <label style="display:block">Threshold: <input type="number" value="100" id="threshold" /></label>
-    </fieldset>
-    <button id="download" style="display: none">Download Code</button>
-  </div>
-  <canvas id="canvas" width="128" height="64" style="width: 100%;image-rendering: pixelated;image-rendering: crisp-edges;"></canvas>
-</body>
-<script src="https://unpkg.com/gif-frames@1.0.1/dist/gif-frames.min.js"></script>
-
-<script type="module" src="./gif2oled.js"></script>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gif2oled</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
