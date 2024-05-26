@@ -33,7 +33,7 @@ bool SetupTest() {
   printf("bcm2835 library Version Number :: %u\r\n", bcm2835_version());
   bcm2835_delay(500);
   myOLED.OLEDbegin(I2C_Speed, I2C_Address, I2C_debug);  // initialize the OLED
-  myOLED.OLEDFillScreen(0xF0, 0);                       // splash screen bars, optional just for effect
+  // myOLED.OLEDFillScreen(0xF0, 0);                       // splash screen bars, optional just for effect
   bcm2835_delay(1000);
   return true;
 }

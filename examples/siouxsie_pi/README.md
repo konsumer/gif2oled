@@ -4,7 +4,7 @@ Here is how to use it on the pi:
 
 ```
 # install C compiler
-sudo apt install -y build-essentials  libcap2 libcap-dev
+sudo apt install -y build-essential libcap2 libcap-dev
 
 # add user to kmem group & setup permissions
 sudo adduser $USER kmem
