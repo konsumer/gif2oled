@@ -1,4 +1,4 @@
-This will create a little program that will show a weird splash-screen on a 128x64 OLED.
+This will create a little program that will show an animated splash-screen on a 128x64 OLED, on a pi, in C.
 
 Here is how to use it on the pi:
 

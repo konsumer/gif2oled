@@ -1,4 +1,4 @@
-#include "gif2oled_image_example.h"
+#include "image_siouxsie.h"
 
 #include <bcm2835.h>
 #include <cstdio>
@@ -51,7 +51,7 @@ int main() {
   int frame = 0;
 
   while (true) {
-    myOLED.OLEDBitmap(0, 0, 128, 64, gif2oled_image_example[frame++ % gif2oled_image_example_size], false);
+    myOLED.OLEDBitmap(0, 0, 128, 64, image_siouxsie[frame++ % image_siouxsie_size], false);
     myOLED.OLEDupdate();
     bcm2835_delay(100);
   }
