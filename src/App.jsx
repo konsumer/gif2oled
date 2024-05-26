@@ -104,64 +104,79 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
   }
 
   return (
-    <div className="p-4">
-      <p className='mb-8'>Use this tool to convert a gif into an animated program for a 1-color LCD/OLED. No files are uploaded to any server, and conversion happens in your browser.</p>
+    <div className="h-screen flex flex-col">
+      <header className='p-4 h-16 flex'>
+        <h1 className='text-4xl text-accent grow'>gif2oled</h1>
+      </header>
+      <main className="p-4 grow overflow-y-auto">
+        <p className='mb-8'>Use this tool to convert a gif into an animated program for a 1-color LCD/OLED. No files are uploaded to any server, and conversion happens in your browser.</p>
 
-      <label className="form-control w-full">
-        <div className="label">
-          <span className="label-text">Choose the file to convert</span>
-        </div>
-        <input onChange={handleFileChange} type="file" className="file-input file-input-bordered file-input-primary w-full" />
-      </label>
-
-      <h3 className='mt-4'>Output Size</h3>
-
-      <div className="flex gap-2">
-        <label className="form-control grow">
-          <div className="label">
-            <span className="label-text">Width</span>
-          </div>
-          <input value={width} onChange={e => setWidth(e.target.value)} type="number" className="input input-bordered" />
-        </label>
-
-        <label className="form-control grow">
-          <div className="label">
-            <span className="label-text">Height</span>
-          </div>
-          <input value={height} onChange={e => setHeight(e.target.value)} type="number" className="input input-bordered" />
-        </label>
-      </div>
-
-      <h3 className='mt-4'>Dithering</h3>
-
-      <div className="flex gap-2">
         <label className="form-control w-full">
           <div className="label">
-            <span className="label-text">Algorithm</span>
+            <span className="label-text">Choose the file to convert</span>
           </div>
-          <select value={algorithm} onChange={e => setAlgorithm(e.target.value)} className="select select-bordered w-full">
-            <option value='binary'>Binary</option>
-            <option value='atkinson'>Atkinson</option>
-            <option value='bayer'>Bayer</option>
-            <option value='floydsteinberg'>Floyd Steinberg</option>
-          </select>
+          <input onChange={handleFileChange} type="file" className="file-input file-input-bordered file-input-primary w-full" />
         </label>
 
-        <label className="form-control grow">
-          <div className="label">
-            <span className="label-text">Threshold</span>
-          </div>
-          <input min={1} value={threshold} onChange={e => setThreshold(e.target.value)} type="number" className="input input-bordered" />
-        </label>
-      </div>
+        <h3 className='mt-4'>Output Size</h3>
 
-      <div className="flex flex-row gap-2 mt-4 justify-center">
-        <button onClick={generateC} className="btn btn-secondary">Plain C</button>
-        <button onClick={generateArduino} className="btn btn-secondary">Arduino C</button>
-        <button onClick={generatePython} className="btn btn-secondary">Micropython</button>
-      </div>
+        <div className="flex gap-2">
+          <label className="form-control grow">
+            <div className="label">
+              <span className="label-text">Width</span>
+            </div>
+            <input value={width} onChange={e => setWidth(e.target.value)} type="number" className="input input-bordered" />
+          </label>
 
-      <canvas ref={r} width={width} height={height} className='w-full mt-4'></canvas>
+          <label className="form-control grow">
+            <div className="label">
+              <span className="label-text">Height</span>
+            </div>
+            <input value={height} onChange={e => setHeight(e.target.value)} type="number" className="input input-bordered" />
+          </label>
+        </div>
+
+        <h3 className='mt-4'>Dithering</h3>
+
+        <div className="flex gap-2">
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Algorithm</span>
+            </div>
+            <select value={algorithm} onChange={e => setAlgorithm(e.target.value)} className="select select-bordered w-full">
+              <option value='binary'>Binary</option>
+              <option value='atkinson'>Atkinson</option>
+              <option value='bayer'>Bayer</option>
+              <option value='floydsteinberg'>Floyd Steinberg</option>
+            </select>
+          </label>
+
+          <label className="form-control grow">
+            <div className="label">
+              <span className="label-text">Threshold</span>
+            </div>
+            <input min={1} value={threshold} onChange={e => setThreshold(e.target.value)} type="number" className="input input-bordered" />
+          </label>
+        </div>
+
+        <div className="flex flex-row gap-2 mt-4 justify-center">
+          <button onClick={generateC} className="btn btn-secondary">C</button>
+          <button onClick={generateArduino} className="btn btn-secondary">Arduino</button>
+          <button onClick={generatePython} className="btn btn-secondary">Python</button>
+        </div>
+
+        <canvas ref={r} width={width} height={height} className='w-full mt-4'></canvas>
+
+      </main>
+
+      <footer className='p-5 text-center bg-neutral text-neutral-content'>
+        <p>
+          Contribute on{' '}
+          <a className='underline' target='_new' href='https://github.com/konsumer/gif2oled'>
+            GitHub
+          </a>
+        </p>
+      </footer>
     </div>
   )
 }
