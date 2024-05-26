@@ -1,6 +1,6 @@
 import { parseGIF, decompressFrames } from 'gifuct-js'
 
-import GIFEncoder from './jsgif/GIFEncoder.js'
+import { GIFEncoder, quantize, applyPalette } from 'gifenc'
 
 // get all frames in the original image as an array of canvas 
 export function process(buffer) { 
@@ -29,17 +29,28 @@ export function process(buffer) {
   return {frames: []}
 }
 
+const downloadURL = (data, fileName) => {
+  const a = document.createElement('a')
+  a.href = data
+  a.download = fileName
+  document.body.appendChild(a)
+  a.style.display = 'none'
+  a.click()
+  a.remove()
+}
+
 export function download(frames, filename='anim.gif', delay=500, repeat=0) {
-  const encoder = new GIFEncoder()
-  encoder.setRepeat(repeat)
-  encoder.setDelay(delay)
-  encoder.start()
+  const gif = GIFEncoder()
+
   for (const frame of frames) {
-    encoder.addFrame(frame)
+    const { data, width, height } = frame.getImageData(0, 0, frame.canvas.width, frame.canvas.height)
+    const palette = quantize(data, 2)
+    const index = applyPalette(data, palette)
+    gif.writeFrame(index, width, height, { palette, delay })
   }
-  encoder.finish()
 
-  // console.log(encoder.stream().getData())
-
-  encoder.download(filename)
+  gif.finish()
+  const url = window.URL.createObjectURL(new Blob([gif.bytes()]))
+  downloadURL(url, filename)
+  window.URL.revokeObjectURL(url)
 }

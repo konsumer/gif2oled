@@ -11,7 +11,7 @@ export default function app() {
   const [filename, setFilename] = useState('siouxsie.gif')
   const [width, setWidth] = useState(128)
   const [height, setHeight] = useState(64)
-  const [threshold, setThreshold] = useState(100)
+  const [threshold, setThreshold] = useState(127)
   const [imgOrig, setOrig] = useState()
   const [imgProcessed, setProcessed] = useState()
   const [invert, setInvert] = useState(false)
@@ -167,10 +167,10 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
 
           <label className="label cursor-pointer form-control">
             <span className="label-text">Invert</span> 
-            <input type="checkbox" className="toggle" checked={invert} value={1} onClick={e => setInvert(e.target.checked)} />
+            <input type="checkbox" className="toggle" checked={invert} value={1} onChange={e => setInvert(e.target.checked)} />
           </label>
         </div>
-        
+
 
         <h3 className='mt-4 text-lg'>Output</h3>
 
