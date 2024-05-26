@@ -19,7 +19,6 @@ int frame = 0;
 
 void setup() {
   Serial.begin(9600);
-  
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
     for(;;); // Don't proceed, loop forever

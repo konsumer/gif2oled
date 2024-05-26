@@ -100,7 +100,7 @@ ${imgProcessed.map(frame => `  { ${frameToByteString(frame, displayType)} }`).jo
 # the frames[frameNumber]
 image_${shortname}_size = ${imgProcessed.length}
 image_${shortname} = [
-${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame, displayType)})`).join(',\n')}
+${imgProcessed.map(frame => `  bytearray([${frameToByteString(frame, displayType)}])`).join(',\n')}
 ]
 `   
     download(code, 'text/x-script.python', `image_${shortname}.py`)
