@@ -42,11 +42,14 @@ const downloadURL = (data, fileName) => {
 export function download(frames, filename='anim.gif', delay=500, repeat=0) {
   const gif = GIFEncoder()
 
+  const palette = [
+    [0, 0, 0],
+    [255, 255, 255]
+  ]
+
   for (const frame of frames) {
     const { data, width, height } = frame.getImageData(0, 0, frame.canvas.width, frame.canvas.height)
-    const palette = quantize(data, 2)
-    const index = applyPalette(data, palette)
-    gif.writeFrame(index, width, height, { palette, delay })
+    gif.writeFrame(applyPalette(data, palette), width, height, { palette, delay })
   }
 
   gif.finish()

@@ -162,7 +162,7 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
             <div className="label">
               <span className="label-text">Threshold</span>
             </div>
-            <input min={1} value={threshold} onChange={e => setThreshold(e.target.value)} type="number" className="input input-bordered" />
+            <input min={0} max={255} value={threshold} onChange={e => setThreshold(e.target.value)} type="number" className="input input-bordered" />
           </label>
 
           <label className="label cursor-pointer form-control">
