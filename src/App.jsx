@@ -36,9 +36,9 @@ export default function app() {
       let f = 0
       const processedFrames = imgOrig.frames.map(frame => {
         const o =  (new OffscreenCanvas(width, height)).getContext("2d", {willReadFrequently: true})
-        drawImageFit(o, frame)
+        drawImageFit(o, frame.canvas)
         o.putImageData(dither(o.getImageData(0, 0, width, height), threshold, algorithm), 0, 0)
-        return o.canvas
+        return o
       })
 
       setProcessed(processedFrames)
@@ -47,7 +47,7 @@ export default function app() {
 
       int = setInterval(() => {
         f = (f + 1) % imgOrig.frames.length
-        ctx.drawImage(processedFrames[f], 0, 0)
+        ctx.drawImage(processedFrames[f].canvas, 0, 0)
       }, imgOrig.delay)
     }
 

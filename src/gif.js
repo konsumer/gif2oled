@@ -21,7 +21,7 @@ export function process(buffer) {
       }
 
       otx.putImageData(imgData, 0, 0)
-      out.push(otx.canvas)
+      out.push(otx)
     }
     return { width, height, delay, frames: out }
   }
@@ -35,7 +35,7 @@ export function download(frames, filename='anim.gif', delay=500, repeat=0) {
   encoder.setDelay(delay)
   encoder.start()
   for (const frame of frames) {
-    encoder.addFrame(frame.getContext("2d"))
+    encoder.addFrame(frame)
   }
   encoder.finish()
 

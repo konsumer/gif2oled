@@ -67,12 +67,11 @@ export function download(content, mimeType, filename){
 
 // convert canvas to 1bit pixels, as bytes
 export function frameToByteString(frame, type='horizontal1bit') {
-  const ctx = frame.getContext("2d")
-  const imgData = ctx.getImageData(0, 0, frame.width, frame.height).data
+  const imgData = frame.getImageData(0, 0, frame.canvas.width, frame.canvas.height).data
 
   const settings = {
-    screenWidth: frame.width,
-    screenHeight: frame.height,
+    screenWidth: frame.canvas.width,
+    screenHeight: frame.canvas.height,
     scaleToFit: true,
     preserveRatio: true,
     centerHorizontally: false,
@@ -90,5 +89,5 @@ export function frameToByteString(frame, type='horizontal1bit') {
     rotation: 0,
   };
 
-  return conversionFunctions[type](imgData, frame.width, settings)
+  return conversionFunctions[type](imgData, frame.canvas.width, settings)
 }
