@@ -14,6 +14,7 @@ export default function app() {
   const [threshold, setThreshold] = useState(100)
   const [imgOrig, setOrig] = useState()
   const [imgProcessed, setProcessed] = useState()
+  const [invert, setInvert] = useState(false)
 
   // update the original
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function app() {
       const processedFrames = imgOrig.frames.map(frame => {
         const o =  (new OffscreenCanvas(width, height)).getContext("2d", {willReadFrequently: true})
         drawImageFit(o, frame.canvas)
-        o.putImageData(dither(o.getImageData(0, 0, width, height), threshold, algorithm), 0, 0)
+        o.putImageData(dither(o.getImageData(0, 0, width, height), threshold, algorithm, invert), 0, 0)
         return o
       })
 
@@ -52,7 +53,7 @@ export default function app() {
     }
 
     return () => int && clearInterval(int)
-  }, [imgOrig, width, height, threshold, algorithm])
+  }, [imgOrig, width, height, threshold, algorithm, invert])
 
   const handleFileChange = e => {
     setFilename(e.target.files[0].name)
@@ -63,7 +64,7 @@ export default function app() {
     const shortname = filename.split('.')[0]
     const code = `
 // generated on ${(new Date()).toISOString()} at ${document.location.toString()} 
-// ${filename} - size:${width}x${height} dither:${algorithm}/${threshold} delay:${imgOrig.delay}ms
+// ${filename} - size:${width}x${height} invert:${invert ? 'yes' : 'no'} dither:${algorithm}/${threshold} delay:${imgOrig.delay}ms
 
 // the frames[frameNumber]
 static const unsigned int image_${shortname}_size = ${imgProcessed.length};
@@ -78,7 +79,7 @@ ${imgProcessed.map(frame => `  { ${frameToByteString(frame)} }`).join(',\n')}
     const shortname = filename.split('.')[0]
     const code = `
 // generated on ${(new Date()).toISOString()} at ${document.location.toString()} 
-// ${filename} - size:${width}x${height} dither:${algorithm}/${threshold} delay:${imgOrig.delay}ms
+// ${filename} - size:${width}x${height} invert:${invert ? 'yes' : 'no'} dither:${algorithm}/${threshold} delay:${imgOrig.delay}ms
 
 // the frames[frameNumber]
 const unsigned int image_${shortname}_size = ${imgProcessed.length};
@@ -93,7 +94,7 @@ ${imgProcessed.map(frame => `  { ${frameToByteString(frame)} }`).join(',\n')}
     const shortname = filename.split('.')[0]
     const code = `
 # generated on ${(new Date()).toISOString()} at ${document.location.toString()} 
-# ${filename} - size:${width}x${height} dither:${algorithm}/${threshold} delay:${imgOrig.delay}ms
+# ${filename} - size:${width}x${height} invert:${invert ? 'yes' : 'no'} dither:${algorithm}/${threshold} delay:${imgOrig.delay}ms
 
 # the frames[frameNumber]
 image_${shortname}_size = ${imgProcessed.length}
@@ -163,7 +164,13 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
             </div>
             <input min={1} value={threshold} onChange={e => setThreshold(e.target.value)} type="number" className="input input-bordered" />
           </label>
+
+          <label className="label cursor-pointer form-control">
+            <span className="label-text">Invert</span> 
+            <input type="checkbox" className="toggle" checked={invert} value={1} onClick={e => setInvert(e.target.checked)} />
+          </label>
         </div>
+        
 
         <h3 className='mt-4 text-lg'>Output</h3>
 

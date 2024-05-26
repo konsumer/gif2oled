@@ -25,7 +25,7 @@ for (let i = 0; i < 256; i++) {
   lumB[i] = i * 0.114
 }
 
-export default function monochrome (imageData, threshold, type) {
+export default function monochrome (imageData, threshold, type, invert=false) {
   const imageDataLength = imageData.data.length
 
   // Greyscale luminance (sets r pixels to luminance of rgb)
@@ -68,6 +68,10 @@ export default function monochrome (imageData, threshold, type) {
     } else {
       // No dithering
       imageData.data[currentPixel] = imageData.data[currentPixel] < threshold ? 0 : 255
+    }
+
+    if (invert) {
+      imageData.data[currentPixel] = imageData.data[currentPixel] ? 0 : 255
     }
 
     // Set g and b pixels equal to r
