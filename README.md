@@ -12,4 +12,3 @@ Once you have built your header, check out [examples](examples) to see how to us
 - make this work with more images-settings like at [image2cpp](https://javl.github.io/image2cpp/)
 - output single frame images (png/jpg/etc) as well as gif
 - output more types of code?
-- I could probly use `gif-encoder-2` for display, too
