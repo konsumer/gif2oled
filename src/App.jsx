@@ -15,6 +15,7 @@ export default function app() {
   const [imgOrig, setOrig] = useState()
   const [imgProcessed, setProcessed] = useState()
   const [invert, setInvert] = useState(false)
+  const [displayType, setDisplayType] = useState('horizontal1bit')
 
   // update the original
   useEffect(() => {
@@ -69,7 +70,7 @@ export default function app() {
 // the frames[frameNumber]
 static const unsigned int image_${shortname}_size = ${imgProcessed.length};
 static const unsigned char image_${shortname}[image_${shortname}_size][${(width*height)/8}] = {
-${imgProcessed.map(frame => `  { ${frameToByteString(frame)} }`).join(',\n')}
+${imgProcessed.map(frame => `  { ${frameToByteString(frame, displayType)} }`).join(',\n')}
 };
 `
     download(code, 'text/x-c', `image_${shortname}.h`)
@@ -84,7 +85,7 @@ ${imgProcessed.map(frame => `  { ${frameToByteString(frame)} }`).join(',\n')}
 // the frames[frameNumber]
 const unsigned int image_${shortname}_size = ${imgProcessed.length};
 const unsigned char image_${shortname}[image_${shortname}_size][${(width*height)/8}] PROGMEM = {
-${imgProcessed.map(frame => `  { ${frameToByteString(frame)} }`).join(',\n')}
+${imgProcessed.map(frame => `  { ${frameToByteString(frame, displayType)} }`).join(',\n')}
 };
 `   
     download(code, 'text/x-c', `image_${shortname}.h`)
@@ -99,7 +100,7 @@ ${imgProcessed.map(frame => `  { ${frameToByteString(frame)} }`).join(',\n')}
 # the frames[frameNumber]
 image_${shortname}_size = ${imgProcessed.length}
 image_${shortname} = [
-${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\n')}
+${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame, displayType)})`).join(',\n')}
 ]
 `   
     download(code, 'text/x-script.python', `image_${shortname}.py`)
@@ -124,24 +125,6 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
           </div>
           <input onChange={handleFileChange} type="file" className="file-input file-input-bordered file-input-primary w-full" />
         </label>
-
-        <h3 className='mt-4 text-lg'>Output Size</h3>
-
-        <div className="flex gap-2">
-          <label className="form-control grow">
-            <div className="label">
-              <span className="label-text">Width</span>
-            </div>
-            <input value={width} onChange={e => setWidth(e.target.value)} type="number" className="input input-bordered" />
-          </label>
-
-          <label className="form-control grow">
-            <div className="label">
-              <span className="label-text">Height</span>
-            </div>
-            <input value={height} onChange={e => setHeight(e.target.value)} type="number" className="input input-bordered" />
-          </label>
-        </div>
 
         <h3 className='mt-4 text-lg'>Dithering</h3>
 
@@ -171,8 +154,36 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
           </label>
         </div>
 
-
         <h3 className='mt-4 text-lg'>Output</h3>
+
+        <div className="flex gap-2">
+          <label className="form-control grow">
+            <div className="label">
+              <span className="label-text">Width</span>
+            </div>
+            <input value={width} onChange={e => setWidth(e.target.value)} type="number" className="input input-bordered" />
+          </label>
+
+          <label className="form-control grow">
+            <div className="label">
+              <span className="label-text">Height</span>
+            </div>
+            <input value={height} onChange={e => setHeight(e.target.value)} type="number" className="input input-bordered" />
+          </label>
+
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Display Type</span>
+            </div>
+            <select value={displayType} onChange={e => setDisplayType(e.target.value)} className="select select-bordered w-full">
+              <option value='horizontal1bit'>Horizontal 1-bit</option>
+              <option value='vertical1bit'>Vertical 1-bit</option>
+              <option value='horizontal565'>Horizontal 565</option>
+              <option value='horizontal888'>Horizontal 888</option>
+              <option value='horizontalAlpha'>Horizontal Alpha</option>
+            </select>
+          </label>
+        </div>
 
         <div className="flex flex-row gap-2 mt-4 justify-center">
           <button onClick={generateC} className="btn btn-secondary">C</button>
