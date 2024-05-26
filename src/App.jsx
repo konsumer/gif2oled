@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+
 import * as gif from './gif.js'
 import { drawImageFit, frameToByteString, download } from './utils.js'
 import dither from './dither.js'
@@ -103,6 +104,11 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
     download(code, 'text/x-script.python', `image_${shortname}.py`)
   }
 
+  const generateGif = () => {
+    const shortname = filename.split('.')[0]
+    gif.download(imgProcessed, `${shortname}.gif`, imgOrig.delay)
+  }
+
   return (
     <div className="h-screen flex flex-col">
       <header className='p-4 h-16 flex'>
@@ -118,7 +124,7 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
           <input onChange={handleFileChange} type="file" className="file-input file-input-bordered file-input-primary w-full" />
         </label>
 
-        <h3 className='mt-4'>Output Size</h3>
+        <h3 className='mt-4 text-lg'>Output Size</h3>
 
         <div className="flex gap-2">
           <label className="form-control grow">
@@ -136,7 +142,7 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
           </label>
         </div>
 
-        <h3 className='mt-4'>Dithering</h3>
+        <h3 className='mt-4 text-lg'>Dithering</h3>
 
         <div className="flex gap-2">
           <label className="form-control w-full">
@@ -159,10 +165,13 @@ ${imgProcessed.map(frame => `  bytearray(${frameToByteString(frame)})`).join(',\
           </label>
         </div>
 
+        <h3 className='mt-4 text-lg'>Output</h3>
+
         <div className="flex flex-row gap-2 mt-4 justify-center">
           <button onClick={generateC} className="btn btn-secondary">C</button>
           <button onClick={generateArduino} className="btn btn-secondary">Arduino</button>
           <button onClick={generatePython} className="btn btn-secondary">Python</button>
+          <button onClick={generateGif} className="btn btn-secondary">Gif</button>
         </div>
 
         <canvas ref={r} width={width} height={height} className='w-full mt-4'></canvas>

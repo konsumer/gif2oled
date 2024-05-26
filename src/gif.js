@@ -1,5 +1,7 @@
 import { parseGIF, decompressFrames } from 'gifuct-js'
 
+import GIFEncoder from './jsgif/GIFEncoder.js'
+
 // get all frames in the original image as an array of canvas 
 export function process(buffer) { 
   const frames = decompressFrames(parseGIF(buffer), true)
@@ -25,4 +27,19 @@ export function process(buffer) {
   }
 
   return {frames: []}
+}
+
+export function download(frames, filename='anim.gif', delay=500, repeat=0) {
+  const encoder = new GIFEncoder()
+  encoder.setRepeat(repeat)
+  encoder.setDelay(delay)
+  encoder.start()
+  for (const frame of frames) {
+    encoder.addFrame(frame.getContext("2d"))
+  }
+  encoder.finish()
+
+  // console.log(encoder.stream().getData())
+
+  encoder.download(filename)
 }
