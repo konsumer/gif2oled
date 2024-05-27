@@ -69,7 +69,7 @@ export default function app() {
 
 // the frames[frameNumber]
 static const unsigned int image_${shortname}_size = ${imgProcessed.length};
-static const unsigned char image_${shortname}[image_${shortname}_size][${(width*height)/8}] = {
+static const unsigned char image_${shortname}[${imgProcessed.length}][${(width*height)/8}] = {
 ${imgProcessed.map(frame => `  { ${frameToByteString(frame, displayType)} }`).join(',\n')}
 };
 `
@@ -84,7 +84,7 @@ ${imgProcessed.map(frame => `  { ${frameToByteString(frame, displayType)} }`).jo
 
 // the frames[frameNumber]
 const unsigned int image_${shortname}_size = ${imgProcessed.length};
-const unsigned char image_${shortname}[image_${shortname}_size][${(width*height)/8}] PROGMEM = {
+const unsigned char image_${shortname}[${imgProcessed.length}][${(width*height)/8}] PROGMEM = {
 ${imgProcessed.map(frame => `  { ${frameToByteString(frame, displayType)} }`).join(',\n')}
 };
 `   

@@ -1,4 +1,4 @@
-#include "image_siouxie.h"
+#include "image_siouxsie.h"
 #include "oled.h"
 
 int main(int argc, char* argv[]) {
@@ -15,10 +15,14 @@ int main(int argc, char* argv[]) {
   }
 
   oled_setup(fd);
-  ;
   clearDisplay(fd);
-  drawBitmap(0, 0, image_siouxie[0], 128, 64, WHITE);
-  Display(fd);
+
+  int i = 0;
+  while (true) {
+    drawBitmap(0, 0, image_siouxsie[i % image_siouxsie_size], 128, 64, WHITE);
+    Display(fd);
+    i++;
+  }
 
   return 0;
 }

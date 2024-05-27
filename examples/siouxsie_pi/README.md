@@ -15,7 +15,7 @@ Then run this:
 
 ```
 # install deps
-sudo apt install libi2c-dev build-essential
+sudo apt install libi2c-dev libstb-dev build-essential 
 
 # build it
 make
