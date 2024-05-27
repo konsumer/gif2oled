@@ -1,3 +1,3 @@
 splash: src/*
-	g++ src/*.cpp -o splash -lm
+	gcc src/*.c -o splash -lm
 
