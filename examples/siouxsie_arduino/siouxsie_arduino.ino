@@ -1,9 +1,9 @@
 #define SSD1306_NO_SPLASH
 
+#include <SPI.h>
+#include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <Wire.h>
-
 #include "image_siouxsie.h"
 
 // OLED display width, in pixels
@@ -12,10 +12,13 @@
 // OLED display height, in pixels
 #define SCREEN_HEIGHT 64
 
-// See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
-#define SCREEN_ADDRESS 0x3D
+// See datasheet for OLED to get address. This was my 128x64.
+#define SCREEN_ADDRESS 0x3C
 
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+// Reset pin # (or -1 if sharing Arduino reset pin)
+#define OLED_RESET -1
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 int frame = 0;
 
