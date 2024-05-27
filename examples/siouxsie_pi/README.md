@@ -23,3 +23,5 @@ make
 # run it
 ./splash
 ```
+
+[My oled lib](https://github.com/konsumer/pipd/tree/main/drivers) can do lots more with images (load still images directly, etc) and more, like text & drawing, but this is a quick example to see it loading a gif.
