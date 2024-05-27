@@ -15,12 +15,13 @@ int main(int argc, char* argv[]) {
   }
 
   oled_setup(fd);
-  clearDisplay(fd);
 
   int i = 0;
   while (true) {
+    clearDisplay(fd);
     drawBitmap(0, 0, image_siouxsie[i % image_siouxsie_size], 128, 64, WHITE);
     Display(fd);
+    usleep(100000);
     i++;
   }
 
