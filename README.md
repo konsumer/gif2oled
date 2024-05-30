@@ -2,8 +2,6 @@ I wanted to make an efficient splash screen that can start really early in pizer
 
 This will generate the C code to do this, as well as micropython code, and arduino code, for other targets.
 
-It can also generate code for micropython & arduino.
-
 Once you have built your header, check out [examples](examples) to see how to use it. There are lots of ways to display images on OLED displays, and most devices have a way to do it n C or micropython, so you should be able to combine these ideas to work on any device, however you prefer.
 
 On a pi, if you run `i2cdetect` it should look like this (with `3c` being my OLED.) If not, you may need to adjust the code or ensure you are all setup right.
