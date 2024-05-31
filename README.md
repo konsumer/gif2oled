@@ -31,6 +31,7 @@ dtparam=i2c_arm=on,i2c_arm_baudrate=1000000
 ### TODO
 
 - make this work with more images-settings like at [image2cpp](https://javl.github.io/image2cpp/)
-- output single frame images (png/jpg/etc) as well as gif
+- work with single-frame images (png/jpg/etc)
+- work with video
 - output more types of code?
 - fix "previous frame" bug where it flashes bg color (see [gifenc#19](https://github.com/mattdesl/gifenc/issues/19) and [gifuct-js#65](https://github.com/matt-way/gifuct-js/issues/65))
